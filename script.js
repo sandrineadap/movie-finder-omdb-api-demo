@@ -1,17 +1,18 @@
 const searchInput = document.querySelector('#searchInput');
 const searchButton = document.querySelector('#searchButton');
-const searchResults = document.querySelector('#searchResults');
+const resultsContainer = document.querySelector('#results');
 
 searchButton.addEventListener('click', () => {
   const searchTerm = searchInput.value.trim();
   if (searchTerm) {
+    console.log("Searching for:", searchTerm);
     searchMovies(searchTerm);
   }
 });
 
 const apiKey = "6958947b" // Replace with your actual API key
 function searchMovies(query) {
-  const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&api_key=${apiKey}`;
+  const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${apiKey}`;
 
   fetch(url)
     .then(res => res.json())
@@ -19,7 +20,7 @@ function searchMovies(query) {
       displayMovies(data.Search);
     })
     .catch(err => {
-      console.error("API errorL", err);
+      console.error("API error:", err);
       resultsContainer.innerHTML = "<p class='text-red-500'>Something went wrong. Try again!</p>";
     });
 }
